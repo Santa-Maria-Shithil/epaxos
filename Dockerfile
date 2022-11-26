@@ -20,8 +20,8 @@ COPY Makefile $NAME/
 WORKDIR $NAME
 #RUN go mod init epaxos
 
-RUN go mod init epaxos go install master
-
+#RUN  go install master
+RUN make compile
 
 
 
