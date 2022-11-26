@@ -2,20 +2,21 @@
 
 FROM golang
 
-RUN mkdir epaxos
+#RUN mkdir epaxos
 ENV NAME=/epaxos
 ENV GO111MODULE=off
 ENV GOPATH=/go/epaxos
-COPY src $NAME/src/
-COPY bin $NAME/bin/
+
+#COPY src $NAME/src/
+#COPY bin $NAME/bin/
 #COPY . $NAME/
 
-WORKDIR /go/epaxos/src/master
+
 
 RUN ls
-#RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
+RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 
-
+RUN ls
 
 
 
