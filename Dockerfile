@@ -14,7 +14,7 @@ COPY src $NAME/src/
 COPY bin $NAME/bin/
 
 
-#RUN go version
+RUN echo $PATH
 
 WORKDIR $NAME
 
