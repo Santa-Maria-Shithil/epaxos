@@ -1,4 +1,5 @@
-FROM golang:1.19.3-alpine3.15
+#FROM golang:1.19.3-alpine3.15
+FROM golang:1.1.2
 
 ENV NAME=/epaxos
 #ENV GO111MODULE=on
@@ -13,7 +14,7 @@ COPY src $NAME/src/
 COPY bin $NAME/bin/
 
 
-#RUN go version
+RUN go version
 
 WORKDIR $NAME
 RUN go mod init epaxos/src
