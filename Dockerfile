@@ -21,7 +21,7 @@ RUN ls
 
 RUN go install master
 
-WORKDIR $NAME
+WORKDIR \bin
 
 
 #ENV TYPE master
