@@ -5,7 +5,7 @@ RUN mkdir epaxos
 #ENV GO111MODULE=on
 #ENV GOPATH=/go/epaxos
 #ENV PATH=$PATH:$GOPATH/bin
-ENV GOBIN=/epaxos/bin
+ENV GOBIN=/epaxos/bin/
 #ENV PATH=$PATH:$GOROOT/bin
 
 RUN ls
@@ -26,7 +26,7 @@ RUN pwd
 
 RUN ls
 #RUN go install master
- CMD ["bash","go install master"]
+ CMD ["bash", "go install master"]
 
 
 
