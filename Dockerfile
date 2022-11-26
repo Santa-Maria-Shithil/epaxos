@@ -12,7 +12,6 @@ RUN mkdir epaxos
 
 COPY src $NAME/src/
 COPY bin $NAME/bin/
-COPY Makefile $NAME/
 
 
 #RUN go version
@@ -21,7 +20,8 @@ WORKDIR $NAME
 #RUN go mod init epaxos
 #RUN  go mod init epaxos && go install master
 
-CMD ["bash", "$NAME/bin/init.sh"]
+
+CMD ["bash", "/bin/init.sh"]
 
 
 
