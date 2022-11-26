@@ -10,7 +10,7 @@ COPY src $NAME/src/
 COPY bin $NAME/bin/
 #COPY . $NAME/
 
-WORKDIR $NAME
+
 #RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 
 
@@ -20,7 +20,7 @@ RUN ls
 
 RUN go install master
 
-
+WORKDIR $NAME
 
 
 
