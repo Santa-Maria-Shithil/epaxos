@@ -3,7 +3,7 @@ FROM golang:1.19.3-alpine3.15
 ENV NAME=/epaxos
 RUN mkdir epaxos
 #ENV GO111MODULE=on
-ENV GOPATH=/go/epaxos
+#ENV GOPATH=/go/epaxos
 #ENV PATH=$PATH:$GOPATH/bin
 #ENV GOBIN=/epaxos/bin/
 ENV PATH=$PATH:/usr/local/go/epaxos/
@@ -16,7 +16,10 @@ COPY bin $NAME/bin/
 
 RUN echo $PATH
 
-WORKDIR $NAME
+WORKDIR $NAME/bin
+
+RUN ls
+
 
 #RUN go mod init epaxos
 #RUN  go mod init epaxos && go install master
