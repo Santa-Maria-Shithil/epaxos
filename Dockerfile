@@ -1,34 +1,39 @@
-# syntax=docker/dockerfile:1
+FROM ubuntu:20.04
 
-FROM golang:1.19.3-alpine3.15
+ENV TZ=Europe/Kiev
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENV NAME=/epaxos
-#COPY go.mod $NAME/
-COPY src $NAME/src/
-COPY bin $NAME/bin/
-COPY . $NAME/
-RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
+RUN apt-get update
 
-WORKDIR $NAME
+RUN echo 'root:root' |chpasswd
 
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN ls
+# install basic libraries
+RUN apt-get update
+RUN apt update
+RUN apt-get install -y \
+    git \
+    wget \
+    python2 \
+    pkg-config \
+    build-essential \
+    clang \
+    cgroup-tools \
+    libapr1-dev libaprutil1-dev \
+    libboost-all-dev \
+    libyaml-cpp-dev \
+    libjemalloc-dev \
+    python3-dev \
+    python3-pip \
+    python3-wheel \
+    python3-setuptools \
+    libgoogle-perftools-dev
+RUN wget https://github.com/mikefarah/yq/releases/download/v4.24.2/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
 
+# copy .gitconfig (For the permission)
+# COPY gitconfig /root/.gitconfig
 
-
-RUN go install master
-
-
-
-
-
-ENV TYPE master
-ENV MADDR localhost
-ENV MPORT 7087
-ENV NREPLICAS 1
-ENV SPORT 7001
-
-
-#WORKDIR ${PATH}
-
-#CMD ["bash", "bin/run.sh"]
+WORKDIR "/root"
+RUN git clone --recursive https://github.com/stonysystems/depfast-ae.git depfast
