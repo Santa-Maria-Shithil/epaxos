@@ -15,12 +15,13 @@ RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 
 
 
+RUN ls
 
 
 
 RUN go install master
 
-WORKDIR $NAME/bin/
+WORKDIR $NAME
 
 ENV TYPE master
 ENV MADDR localhost
