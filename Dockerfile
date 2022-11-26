@@ -2,9 +2,10 @@
 
 FROM golang
 
+RUN mkdir epaxos
 ENV NAME=/epaxos
 ENV GO111MODULE=off
-ENV GOPATH=./go/$NAME
+ENV GOPATH=/go/$NAME
 COPY src $NAME/src/
 COPY bin $NAME/bin/
 #COPY . $NAME/
