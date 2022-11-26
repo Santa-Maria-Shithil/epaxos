@@ -35,4 +35,4 @@ RUN ls
 
 #WORKDIR ${PATH}
 
-#CMD ["bash", "run.sh"]
+CMD ["bash", "run.sh"]
