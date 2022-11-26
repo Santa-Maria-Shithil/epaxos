@@ -36,4 +36,4 @@ ENV SPORT 7001
 
 #WORKDIR ${PATH}
 
-#CMD ["bash", "bin/run.sh"]
+CMD ["bash", "bin/run.sh"]
