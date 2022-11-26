@@ -11,7 +11,7 @@ ENV GOPATH=/go/epaxos
 #COPY bin $NAME/bin/
 #COPY . $NAME/
 
-RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
+RUN git clone --recursive https://github.com/Santa-Maria-Shithil/epaxos.git
 
 
 
