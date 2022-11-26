@@ -16,7 +16,7 @@ ENV GOPATH=/go/epaxos
 RUN ls
 RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 
-RUN ls
+
 
 
 
@@ -24,7 +24,7 @@ RUN ls
 RUN go install master
 
 WORKDIR $NAME
-
+RUN ls
 
 
 ENV TYPE master
