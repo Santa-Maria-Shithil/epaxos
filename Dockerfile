@@ -1,5 +1,4 @@
-#FROM golang:1.19.3-alpine3.15
-FROM golang:1.1.2
+FROM golang:1.19.3-alpine3.15
 
 ENV NAME=/epaxos
 #ENV GO111MODULE=on
