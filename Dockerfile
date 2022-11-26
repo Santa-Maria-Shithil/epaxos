@@ -12,6 +12,7 @@ RUN ls
 
 COPY src $NAME/src/
 COPY bin $NAME/bin/
+COPY Makefile $NAME/
 
 
 RUN go version
@@ -19,12 +20,6 @@ RUN go version
 WORKDIR $NAME
 RUN go mod init epaxos
 
-#RUN go mod tidy
-
-WORKDIR $NAME/src
-RUN pwd
-
-RUN ls
 RUN go install master
 
 
