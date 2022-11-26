@@ -4,8 +4,8 @@ FROM golang:1.19.3-alpine3.15
 
 ENV NAME=/epaxos
 #COPY go.mod $NAME/
-#COPY src $NAME/src/
-#COPY bin $NAME/bin/
+COPY src $NAME/src/
+COPY bin $NAME/bin/
 
 RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 
