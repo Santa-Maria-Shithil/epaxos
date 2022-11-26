@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.19.3-alpine3.15
+FROM golang
 
 ENV NAME=/epaxos
 #COPY go.mod $NAME/
