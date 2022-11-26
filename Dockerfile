@@ -10,11 +10,11 @@ ENV GOPATH=/go/epaxos
 #COPY src $NAME/src/
 #COPY bin $NAME/bin/
 #COPY . $NAME/
-ADD . /epaxos
+ADD . /go/epaxos
 
 #RUN git clone --recursive https://github.com/Santa-Maria-Shithil/epaxos.git
 
-
+#WORKDIR /go/epaxos
 
 RUN ls
 
