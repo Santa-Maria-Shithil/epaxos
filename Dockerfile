@@ -6,7 +6,7 @@ ENV NAME=/epaxos
 #COPY go.mod $NAME/
 COPY src $NAME/src/
 COPY bin $NAME/bin/
-COPY . $NAME
+COPY . $NAME/
 
 WORKDIR $NAME
 RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
