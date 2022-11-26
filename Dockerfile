@@ -7,7 +7,7 @@ RUN mkdir epaxos
 WORKDIR $NAME
 COPY go.mod ./
 RUN go mod download
-COPY COPY *.go ./
+COPY *.go ./
 
 COPY src ./src/
 COPY bin ./bin/
