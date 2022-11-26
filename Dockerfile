@@ -24,7 +24,7 @@ RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 RUN go install master
 
 WORKDIR $NAME
-RUN ls
+RUN pwd
 
 
 ENV TYPE master
