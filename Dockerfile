@@ -3,7 +3,7 @@
 FROM golang
 
 #RUN mkdir epaxos
-ENV NAME=/epaxos/
+ENV NAME=/epaxos
 ENV GO111MODULE=off
 ENV GOPATH=/go/epaxos
 
@@ -21,7 +21,7 @@ RUN ls
 
 RUN go install master
 
-WORKDIR \bin
+WORKDIR /bin
 
 
 #ENV TYPE master
