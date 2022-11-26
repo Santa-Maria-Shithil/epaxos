@@ -6,7 +6,7 @@ RUN mkdir epaxos
 #ENV GOPATH=/go/epaxos
 #ENV PATH=$PATH:$GOPATH/bin
 #ENV GOBIN=/epaxos/bin/
-ENV PATH=$PATH:/usr/local/go/epaxos/
+ENV PATH=$PATH:/go/epaxos/
 
 #RUN ls
 
@@ -16,7 +16,7 @@ COPY bin $NAME/bin/
 
 RUN echo $PATH
 
-WORKDIR $NAME/bin
+WORKDIR $NAME
 
 RUN ls
 
