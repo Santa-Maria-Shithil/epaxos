@@ -4,24 +4,18 @@ FROM golang:1.19.3-alpine3.15
 
 ENV NAME=/epaxos
 RUN mkdir epaxos
+COPY go.mod $NAME/
+COPY src $NAME/src/
+COPY bin $NAME/bin/
+
 WORKDIR $NAME
-COPY go.mod ./
-#RUN go mod download
-#COPY *.go ./
-
-COPY src ./src/
-COPY bin ./bin/
-
-
-
-
 
 
 RUN ls
 
 
 
-RUN go build src/master
+RUN go install master
 
 
 
