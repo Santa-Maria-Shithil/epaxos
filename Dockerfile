@@ -1,29 +1,33 @@
 FROM golang:1.19.3-alpine3.15
 
-
-ENV NAME=/epaxos
-ENV GO111MODULE=on
-ENV GOPATH=/go/epaxos
-ENV PATH=$PATH:$GOPATH/bin
-ENV GOROOT=/usr/local/go
-ENV PATH=$PATH:$GOROOT/bin
-
+RUN go get -d https://github.com/Santa-Maria-Shithil/epaxos.git
 RUN ls
 
-COPY src $NAME/src/
-COPY bin $NAME/bin/
+
+
+#ENV NAME=/epaxos
+#ENV GO111MODULE=on
+#ENV GOPATH=/go/epaxos
+#ENV PATH=$PATH:$GOPATH/bin
+#ENV GOROOT=/usr/local/go
+#ENV PATH=$PATH:$GOROOT/bin
+
+#RUN ls
+
+#COPY src $NAME/src/
+#COPY bin $NAME/bin/
 
 
 #RUN go version
 
-WORKDIR $NAME
-RUN go mod init go/epaxos
+#WORKDIR $NAME
+#RUN go mod init go/epaxos
 
 #RUN go mod tidy
 
 
-RUN cat go.mod
-RUN go install  master
+#RUN cat go.mod
+#RUN go install  master
  
 
 
