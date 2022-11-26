@@ -11,9 +11,6 @@ ENV GOPATH=/go/epaxos
 #COPY bin $NAME/bin/
 #COPY . $NAME/
 
-
-
-RUN ls
 RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 
 
@@ -24,14 +21,14 @@ RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 RUN go install master
 
 WORKDIR $NAME
-RUN pwd
-
 
 ENV TYPE master
 ENV MADDR localhost
 ENV MPORT 7087
 ENV NREPLICAS 1
 ENV SPORT 7001
+
+RUN ls
 
 
 #WORKDIR ${PATH}
