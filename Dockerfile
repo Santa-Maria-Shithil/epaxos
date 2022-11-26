@@ -2,7 +2,7 @@
 
 FROM golang
 
-ENV NAME=/go/epaxos
+ENV NAME="pwd"/epaxos
 RUN mkdir $NAME
 
 ENV GO111MODULE=off
@@ -14,6 +14,7 @@ RUN go install master
 
 WORKDIR $NAME
 
+RUN ls
 
 ENV TYPE master
 ENV MADDR localhost
