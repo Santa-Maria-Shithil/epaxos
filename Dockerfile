@@ -21,6 +21,8 @@ RUN go mod init epaxos
 
 #RUN go mod tidy
 
+WORKDIR $NAME/src
+RUN pwd
 
 RUN ls
 RUN go install master
