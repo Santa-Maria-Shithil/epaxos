@@ -2,7 +2,7 @@ FROM golang:1.19.3-alpine3.15
 
 
 
-RUN go mod init go
+RUN go mod init ./
 RUN go get -d https://github.com/Santa-Maria-Shithil/epaxos.git
 RUN ls
 
