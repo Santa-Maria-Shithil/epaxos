@@ -25,8 +25,8 @@ WORKDIR $NAME/src
 RUN pwd
 
 RUN ls
-#RUN go install master
- CMD ["bash", "go install master"]
+RUN go install master
+
 
 
 
