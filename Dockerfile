@@ -21,6 +21,7 @@ WORKDIR $NAME
 #RUN go mod init epaxos
 
 #RUN  go install master
+RUN apt install make
 RUN make compile
 
 
