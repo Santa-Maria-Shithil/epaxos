@@ -21,7 +21,7 @@ RUN ls
 
 RUN go install master
 
-WORKDIR /bin
+WORKDIR /go/epaxos/bin
 
 
 #ENV TYPE master
