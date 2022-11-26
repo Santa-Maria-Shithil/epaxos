@@ -1,4 +1,4 @@
-FROM golang
+FROM golang:1.19.3-alpine3.15
 
 
 ENV NAME=/epaxos
@@ -8,11 +8,11 @@ ENV PATH=$PATH:$GOPATH/bin
 ENV GOROOT=/usr/local/go
 ENV PATH=$PATH:$GOROOT/bin
 
-RUN mkdir epaxos
+RUN ls
+
 COPY src $NAME/src/
 COPY bin $NAME/bin/
-#COPY pkg $NAME/pkg/
-#COPY tla+ $NAME/tla+/
+
 
 #RUN go version
 
@@ -21,7 +21,7 @@ RUN go mod init go/epaxos
 
 #RUN go mod tidy
 
-RUN ls
+
 RUN cat go.mod
 RUN go install  master
  
