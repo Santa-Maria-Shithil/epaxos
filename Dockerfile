@@ -21,7 +21,7 @@ WORKDIR $NAME
 #RUN go mod init epaxos
 #RUN  go mod init epaxos && go install master
 
-CMD ["bash", "bin/init.sh"]
+CMD ["bash", "$NAME/bin/init.sh"]
 
 
 
