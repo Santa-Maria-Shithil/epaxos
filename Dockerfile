@@ -2,7 +2,7 @@
 
 FROM golang
 
-RUN mkdir /epaxos
+RUN mkdir /go/epaxos
 ENV NAME=/epaxos
 ENV GO111MODULE=off
 ENV GOPATH=/go/epaxos
