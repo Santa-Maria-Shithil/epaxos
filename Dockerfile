@@ -20,7 +20,7 @@ RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 
 RUN go install master
 
-WORKDIR $NAME/bin
+WORKDIR $NAME/bin/
 
 ENV TYPE master
 ENV MADDR localhost
