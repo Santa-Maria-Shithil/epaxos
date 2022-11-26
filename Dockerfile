@@ -30,7 +30,7 @@ RUN go install master
 #ENV NREPLICAS 1
 #ENV SPORT 7001
 
-RUN pwd
+RUN ls
 
 
 #WORKDIR ${PATH}
