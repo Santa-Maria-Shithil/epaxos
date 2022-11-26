@@ -6,7 +6,7 @@ RUN mkdir epaxos
 ENV GOPATH=/go/epaxos
 #ENV PATH=$PATH:$GOPATH/bin
 #ENV GOBIN=/epaxos/bin/
-ENV PATH=$PATH:$GOPATH/bin
+ENV PATH=$PATH:$GOPATH/bin/
 
 #RUN ls
 
@@ -17,6 +17,7 @@ COPY bin $NAME/bin/
 #RUN go version
 
 WORKDIR $NAME
+RUN pw
 #RUN go mod init epaxos
 #RUN  go mod init epaxos && go install master
 
