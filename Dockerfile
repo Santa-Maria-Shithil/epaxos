@@ -21,7 +21,7 @@ RUN ls
 
 RUN go install master
 
-RUN cd epaxos/bin
+RUN tree
 
 ENV TYPE master
 ENV MADDR localhost
