@@ -23,7 +23,7 @@ RUN go mod init epaxos
 
 
 RUN ls
-RUN go install  src/master
+RUN go install master
  
 
 
