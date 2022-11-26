@@ -16,7 +16,7 @@ COPY bin $NAME/bin/
 #RUN go version
 
 WORKDIR $NAME
-RUN go mod init epaxos
+RUN go mod init epaxos/src
 
 #RUN go mod tidy
 
