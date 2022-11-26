@@ -22,7 +22,7 @@ RUN go mod init go/epaxos
 #RUN go mod tidy
 
 RUN ls
-RUN cat mod.go
+RUN cat go.mod
 RUN go install  master
  
 
