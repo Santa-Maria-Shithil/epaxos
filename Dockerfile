@@ -2,15 +2,16 @@
 
 FROM golang
 
-RUN mkdir /go/epaxos
-ENV NAME=/epaxos
+ENV NAME=/go/epaxos
+RUN mkdir $NAME
+
 ENV GO111MODULE=off
-ENV GOPATH=/go/epaxos
+ENV GOPATH=$NAME
 
 #COPY src $NAME/src/
 #COPY bin $NAME/bin/
 #COPY . $NAME/
-ADD . /go/epaxos
+ADD . $NAME
 
 #RUN git clone --recursive https://github.com/Santa-Maria-Shithil/epaxos.git
 
@@ -22,7 +23,7 @@ RUN ls
 
 RUN go install master
 
-WORKDIR /go/epaxos/bin
+WORKDIR $NAME
 
 
 ENV TYPE master
@@ -36,4 +37,4 @@ RUN ls
 
 #WORKDIR ${PATH}
 
-CMD ["bash", "run.sh"]
+CMD ["bash", "bin/run.sh"]
