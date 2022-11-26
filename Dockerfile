@@ -2,7 +2,7 @@
 
 FROM golang
 
-#RUN mkdir epaxos
+RUN mkdir /epaxos
 ENV NAME=/epaxos
 ENV GO111MODULE=off
 ENV GOPATH=/go/epaxos
@@ -10,8 +10,9 @@ ENV GOPATH=/go/epaxos
 #COPY src $NAME/src/
 #COPY bin $NAME/bin/
 #COPY . $NAME/
+ADD . /epaxos
 
-RUN git clone --recursive https://github.com/Santa-Maria-Shithil/epaxos.git
+#RUN git clone --recursive https://github.com/Santa-Maria-Shithil/epaxos.git
 
 
 
