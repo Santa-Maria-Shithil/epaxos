@@ -1,6 +1,7 @@
 FROM golang:1.19.3-alpine3.15
 
 ENV NAME=/epaxos
+RUN mkdir epaxos
 #ENV GO111MODULE=on
 #ENV GOPATH=/go/epaxos
 #ENV PATH=$PATH:$GOPATH/bin
@@ -16,7 +17,7 @@ COPY bin $NAME/bin/
 RUN go version
 
 WORKDIR $NAME
-RUN go mod init epaxos/src
+RUN go mod init epaxos
 
 #RUN go mod tidy
 
