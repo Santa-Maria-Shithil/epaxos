@@ -10,6 +10,8 @@ COPY src $NAME/src/
 COPY bin $NAME/bin/
 #COPY . $NAME/
 
+WORKDIR /go/epaxos/src/master
+
 RUN ls
 #RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 
