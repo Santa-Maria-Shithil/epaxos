@@ -1,31 +1,29 @@
+# syntax=docker/dockerfile:1
+
 FROM golang:1.19.3-alpine3.15
 
 ENV NAME=/epaxos
 RUN mkdir epaxos
-#ENV GO111MODULE=on
-#ENV GOPATH=/go/epaxos
-#ENV PATH=$PATH:$GOPATH/bin
-#ENV GOBIN=/epaxos/bin/
-ENV PATH=$PATH:/go/epaxos
-
-#RUN ls
-
-COPY src $NAME/src/
-COPY bin $NAME/bin/
-
-
-RUN echo $PATH
-
 WORKDIR $NAME
+COPY go.mod ./
+RUN go mod download
+COPY COPY *.go ./
+
+COPY src ./src/
+COPY bin ./bin/
+
+
+
+
+
 
 RUN ls
 
 
-#RUN go mod init epaxos
-#RUN  go mod init epaxos && go install master
+
+RUN go install master
 
 
-CMD ["bash", "bin/init.sh"]
 
 
 
