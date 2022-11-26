@@ -5,8 +5,8 @@ RUN mkdir epaxos
 #ENV GO111MODULE=on
 #ENV GOPATH=/go/epaxos
 #ENV PATH=$PATH:$GOPATH/bin
-#ENV GOROOT=/epaxos/
-#ENV PATH=$PATH:$GOROOT/bin
+ENV GOROOT=/epaxos/
+ENV PATH=$PATH:$GOROOT/bin
 
 RUN ls
 
