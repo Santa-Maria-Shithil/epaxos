@@ -2,7 +2,7 @@
 
 FROM golang
 
-ENV NAME=pwd/epaxos
+ENV NAME='pwd'/epaxos
 RUN mkdir $NAME
 
 ENV GO111MODULE=off
