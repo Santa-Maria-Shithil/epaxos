@@ -6,8 +6,8 @@ ENV NAME=/epaxos
 RUN mkdir epaxos
 WORKDIR $NAME
 COPY go.mod ./
-RUN go mod download
-COPY *.go ./
+#RUN go mod download
+#COPY *.go ./
 
 COPY src ./src/
 COPY bin ./bin/
