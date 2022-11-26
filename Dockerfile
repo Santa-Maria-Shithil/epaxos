@@ -3,6 +3,7 @@
 FROM golang
 
 ENV NAME=/epaxos
+ENV GO111MODULE=off
 COPY go.mod $NAME/
 COPY src $NAME/src/
 COPY bin $NAME/bin/
