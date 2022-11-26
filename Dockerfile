@@ -4,7 +4,7 @@ ENV NAME=/epaxos
 #ENV GO111MODULE=on
 #ENV GOPATH=/go/epaxos
 #ENV PATH=$PATH:$GOPATH/bin
-#ENV GOROOT=/usr/local/go
+ENV GOROOT=/go/epaxos/
 #ENV PATH=$PATH:$GOROOT/bin
 
 RUN ls
