@@ -10,7 +10,7 @@ COPY src $NAME/src/
 COPY bin $NAME/bin/
 #COPY . $NAME/
 
-RUN pwd
+RUN ls
 #RUN git clone https://github.com/Santa-Maria-Shithil/epaxos.git
 
 
