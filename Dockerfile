@@ -3,10 +3,10 @@ FROM golang:1.19.3-alpine3.15
 ENV NAME=/epaxos
 RUN mkdir epaxos
 #ENV GO111MODULE=on
-#ENV GOPATH=/go/epaxos
+ENV GOPATH=/go/epaxos
 #ENV PATH=$PATH:$GOPATH/bin
-ENV GOROOT="/usr/local/go/":"/epaxos/"
-ENV PATH=$PATH:$GOROOT/bin
+#ENV GOROOT="/usr/local/go/":"/epaxos/"
+#ENV PATH=$PATH:$GOROOT/bin
 
 RUN ls
 
