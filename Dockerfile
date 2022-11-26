@@ -21,7 +21,7 @@ RUN ls
 
 
 
-RUN go install master
+RUN go build src/master
 
 
 
