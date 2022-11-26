@@ -17,7 +17,7 @@ RUN ls
 
 
 
-RUN go build master.go
+RUN go install master
 
 
 
