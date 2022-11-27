@@ -3,6 +3,7 @@
 FROM golang
 
 ENV NAME=/epaxos
+#ENV NAME=/go/epaxos
 RUN mkdir $NAME
 
 ENV GO111MODULE=off
