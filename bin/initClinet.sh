@@ -1,4 +1,5 @@
 #!/bin/bash
+#bash bin/initClient.sh
 
 docker rm ep
 docker rmi ep
