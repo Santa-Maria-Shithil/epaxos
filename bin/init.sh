@@ -1,4 +1,4 @@
 #!/bin/bash
 
-go mod init epaxos
-go install master
+docker build --tag ep .
+docker run --name ep ep
