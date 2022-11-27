@@ -14,7 +14,9 @@ ADD . $NAME
 ENV TYPE ""
 # type of the instance
 
-RUN go install $TYPE
+RUN go install master
+RUN go install server
+RUN go install client
 
 
 WORKDIR $NAME
