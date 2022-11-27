@@ -12,6 +12,8 @@ ENV GOPATH=$NAME
 ADD . $NAME
 
 RUN go install master
+RUN go install server
+RUN go install client
 
 WORKDIR $NAME
 
