@@ -6,8 +6,9 @@ MASTERPORT=7087
 CLIENTNAME="client"  #modify client name
 CLIENTIP="172.75.0.200" #ip start with IP address 172.75.0.200
 CLIENTPORT=7270 #port start with 7270
-NCLIENTS=1 # minimum 1
+NCLIENTS=3 # minimum 1
+NREQ=5000 # total number of req per client
 docker rm ${CLIENTNAME}
 docker rmi ${CLIENTNAME}
 docker build --tag ${CLIENTNAME} .
-docker run --net Paxos_Network --ip=${CLIENTIP} -p ${CLIENTPORT}:${CLIENTPORT} -d -e MADDR=${MIP} -e MPORT=${MASTERPORT} -e REQSNB=${NCLIENTS} -e TYPE="client" --name ${CLIENTNAME} ${CLIENTNAME}
+docker run --net Paxos_Network --ip=${CLIENTIP} -p ${CLIENTPORT}:${CLIENTPORT} -d -e MADDR=${MIP} -e MPORT=${MASTERPORT} -e Q=${NREQ} -e NCLIENTS=${NCLIENTS} -e TYPE="client" --name ${CLIENTNAME} ${CLIENTNAME}
