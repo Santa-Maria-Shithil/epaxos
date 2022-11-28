@@ -1,7 +1,7 @@
 #!/bin/bash
 #bash bin/initServer.sh
 
-docker rm ep
-docker rmi ep
-docker build --tag ep .
-docker run -p 7001:7001 -e TYPE="server" --name ep --net Paxos_Network ep
+docker rm server1
+docker rmi server1
+docker build --tag server1 .
+docker run -p 7001:7001 -d -e TYPE="server" --name server1 --net Paxos_Network server1
