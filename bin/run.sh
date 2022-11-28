@@ -87,6 +87,7 @@ fi
 if [ "${TYPE}" == "client" ]; then
     args="-v ${V} -s ${S} -c ${CONFLICTS} -eps ${EPS} -check ${CHECK} -procs ${PROCS} -r ${ROUNDS} -f ${FAST} -e ${NOLEADER} -w ${WRITES} -q ${REQSNB} -maddr ${MADDR} -mport ${MPORT} ${CLIENT_EXTRA_ARGS}"
 
+     echo "client mode: ${args}"
     # aggregate all logs in a single file
     ALL=all_logs
     echo "client mode: ${args}" >${ALL}
