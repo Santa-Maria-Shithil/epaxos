@@ -1,9 +1,13 @@
 #!/bin/bash
 #bash bin/initClient.sh
-SERVERNAME="client"  #modify serer name
-
-docker rm ${SERVERNAME}
-docker rmi ${SERVERNAME}
-docker build --tag ${SERVERNAME} .
-docker run --ip=172.75.0.200 -p 7075:7075 -d -e NCLIENTS=1 -e TYPE="client" --name ${SERVERNAME} --net Paxos_Network ${SERVERNAME}
-#modify NCLINETS variable
+MIP="172.75.0.2"
+MASTERNAME="master"
+MASTERPORT=7087
+CLIENTNAME="client"  #modify client name
+CLIENTIP="172.75.0.200" #ip start with IP address 172.75.0.200
+CLIENTPORT=7270 #port start with 7270
+NCLIENTS=1 # minimum 1
+docker rm ${CLIENTNAME}
+docker rmi ${CLIENTNAME}
+docker build --tag ${CLIENTNAME} .
+docker run --net Paxos_Network --ip=${CLIENTIP} -p ${CLIENTPORT}:${CLIENTPORT} -d -e MADDR=${MIP} -e MPORT=${MASTERPORT} -e REQSNB=${NCLIENTS} -e TYPE="client" --name ${CLIENTNAME} ${CLIENTNAME}
