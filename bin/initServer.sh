@@ -9,7 +9,4 @@ SERVERPORT=7072 #port start with 7070
 docker rm ${SERVERNAME}
 docker rmi ${SERVERNAME}
 docker build --tag ${SERVERNAME} .
-docker run  --net Paxos_Network --ip=${SERVERIP} -p ${SERVERPORT}:${SERVERPORT}//
-         -d -e MADDR=${MIP} -e MPORT=${MASTERPORT} -e SADDR=${SERVERIP}//
-         -e SPORT=${SERVERPORT} -e TYPE="server" --name ${SERVERNAME}//
-           ${SERVERNAME}
+docker run --net Paxos_Network --ip=${SERVERIP} -p ${SERVERPORT}:${SERVERPORT} -d -e MADDR=${MIP} -e MPORT=${MASTERPORT} -e SADDR=${SERVERIP} -e SPORT=${SERVERPORT} -e TYPE="server" --name ${SERVERNAME} ${SERVERNAME}
