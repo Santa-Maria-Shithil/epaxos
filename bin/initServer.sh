@@ -1,8 +1,8 @@
 #!/bin/bash
 #bash bin/initServer.sh
-SERVERNAME="server3"  #modify serer name
-SERVERIP= "172.75.0.4" #ip start with IP address 172.75.0.4
-SERVERPORT=7070 #port start with 7070
+SERVERNAME="server2"  #modify serer name
+SERVERIP= "172.75.0.5" #ip start with IP address 172.75.0.4
+SERVERPORT=7071 #port start with 7070
 docker rm ${SERVERNAME}
 docker rmi ${SERVERNAME}
 docker build --tag ${SERVERNAME} .
