@@ -7,4 +7,3 @@ docker rm ${SERVERNAME}
 docker rmi ${SERVERNAME}
 docker build --tag ${SERVERNAME} .
 docker run --ip=${SERVERIP} -p ${SERVERPORT}:${SERVERPORT} -d -e SADDR=${SERVERIP} -e SPORT=${SERVERPORT} -e TYPE="server" --name ${SERVERNAME} --net Paxos_Network ${SERVERNAME}
-#modify -p  and -SPORT option
