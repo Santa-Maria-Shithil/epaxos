@@ -49,7 +49,7 @@ func main() {
 		log.Fatalf("Conflicts percentage must be between 0 and 100.\n")
 	}
 
-	log.Printf("Masteraddress: %s", *masterAddr)
+	log.Printf("Masteraddress: %s  Masterport: %d", *masterAddr, *masterPort)
 
 	master, err := rpc.DialHTTP("tcp", fmt.Sprintf("%s:%d", *masterAddr, *masterPort))
 	if err != nil {
