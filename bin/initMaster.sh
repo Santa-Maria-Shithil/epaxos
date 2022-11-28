@@ -1,7 +1,7 @@
 #!/bin/bash
 #bash bin/initMaster.sh
 
-MIP="172.75.0.2"
+MIP=172.75.0.2
 MASTERNAME="master"
 docker rm ${MASTERNAME}
 docker rmi ${MASTERNAME}
