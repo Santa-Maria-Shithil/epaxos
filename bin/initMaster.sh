@@ -1,8 +1,10 @@
 #!/bin/bash
 #bash bin/initMaster.sh
 
-docker rm ep
-docker rmi ep
-docker build --tag ep .
-docker network create Paxos_Network
-docker run -p 7087:7087 -e TYPE="master" -e MADDR=localhost -e MPORT=7087 -e NREPLICAS=3 --name ep --net Paxos_Network ep
+MIP=172.75.0.1
+MASTERNAME="master"
+docker rm ${MASTERNAME}
+docker rmi ${MASTERNAME}
+docker build --tag ${MASTERNAME} .
+docker network create --subnet=172.75.0.0/16 Paxos_Network
+docker run --net Paxos_Network --ip=172.75.0.1 -p 7087:7087 -e TYPE="master" -e MADDR=${MIP} -e MPORT=7087 -e NREPLICAS=3 --name ${MASTERNAME} ${MASTERNAME}
