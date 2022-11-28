@@ -83,7 +83,7 @@ fi
 #   -s	replace read with short scan (100 elements)
 #   -l local read
 if [ "${TYPE}" == "client" ]; then
-    args="-maddr ${MADDR} -mport ${MPORT} ${CLIENT_EXTRA_ARGS}"
+    args="-v ${V} -s ${S} -c ${CONFLICTS} -eps ${EPS} -check ${CHECK} -procs ${PROCS} -r ${ROUNDS} -f ${FAST} -e ${NOLEADER} -w ${WRITES} -q ${REQSNB} -maddr ${MADDR} -mport ${MPORT} ${CLIENT_EXTRA_ARGS}"
 
     # aggregate all logs in a single file
     ALL=all_logs
