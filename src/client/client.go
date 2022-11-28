@@ -51,7 +51,7 @@ func main() {
 
 	master, err := rpc.DialHTTP("tcp", fmt.Sprintf("%s:%d", *masterAddr, *masterPort))
 	if err != nil {
-		log.Fatalf("Error connecting to master\n")
+		log.Fatalf(err.Error())
 	}
 
 	rlReply := new(masterproto.GetReplicaListReply)
