@@ -4,5 +4,5 @@ SERVERNAME="server1"  #modify serer name
 docker rm ${SERVERNAME}
 docker rmi ${SERVERNAME}
 docker build --tag ${SERVERNAME} .
-docker run --ip=172.75.0.3 -p 7070:7070 -d -e SPORT="7070" -e TYPE="server" --name ${SERVERNAME} --net Paxos_Network ${SERVERNAME}
-#modify -p  and -SPORT option, --ip start with IP address 172.75.0.3
+docker run --ip=172.75.0.4 -p 7070:7070 -d -e SPORT="7070" -e TYPE="server" --name ${SERVERNAME} --net Paxos_Network ${SERVERNAME}
+#modify -p  and -SPORT option, --ip start with IP address 172.75.0.4
