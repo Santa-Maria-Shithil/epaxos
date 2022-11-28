@@ -88,39 +88,5 @@ if [ "${TYPE}" == "client" ]; then
     args="-v ${V} -s ${S} -c ${CONFLICTS} -eps ${EPS} -check ${CHECK} -procs ${PROCS} -r ${ROUNDS} -f ${FAST} -e ${NOLEADER} -w ${WRITES} -q ${Q} -maddr ${MADDR} -mport ${MPORT} ${CLIENT_EXTRA_ARGS}"
 
      echo "client mode: ${args}"
-    # aggregate all logs in a single file
-    ALL=all_logs
-    echo "client mode: ${args}" >${ALL}
-
-    mkdir -p logs/
-
-    for i in $(seq 1 ${NCLIENTS}); do
-        ${DIR}/client ${args} 2>&1 | tee -a logs/c_${i}.txt ${ALL} >/dev/null &
-        echo "> Client $i of ${NCLIENTS} started!"
-    done
-
-    echo "Will check if all are started..."
-    started=-1
-    while [ ${started} != ${NCLIENTS} ]; do
-        started=$(ls logs/c_*.txt 2>/dev/null | wc -l)
-    done
-
-    echo "Will check if all are connected..."
-    connected=-1
-    while [ ${connected} != ${NCLIENTS} ]; do
-        connected=$(grep "Connected" ${ALL} | wc -l)
-    done
-    echo "Connect OK!"
-
-    ended=-1
-    while [ ${ended} != ${NCLIENTS} ]; do
-        ended=$(grep "Test took" ${ALL} | wc -l)
-        echo "> Ended ${ended} of ${NCLIENTS}!"
-        sleep 10
-    done
-
-    pkill -P $$
-
-    echo "Will sleep forever"
-    while true; do sleep 10000; done
+     ${DIR}/client ${args}
 fi
