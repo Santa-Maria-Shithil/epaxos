@@ -55,7 +55,7 @@ fi
 
 
 if [ "${TYPE}" == "server" ]; then
-    args="-addr ${ADDR} -port ${SPORT} -maddr ${MADDR} -mport ${MPORT} ${SERVER_EXTRA_ARGS}"
+    args="-durable ${DURABLE} -beacon ${BEACON} -dreply ${DREPLY} -exec ${EXEC}-thrifty ${THRIFTY} -cpuprofile ${CPUPROFILE} -procs ${PROCS} -doEpaxos ${DoEpaxos} -doGpaxos ${DoGpaxos}-doMencius ${DoMencius} -addr ${SADDR} -port ${SPORT} -maddr ${MADDR} -mport ${MPORT} ${SERVER_EXTRA_ARGS}"
     echo "server mode: ${args}"
     ${DIR}/server ${args}
 fi

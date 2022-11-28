@@ -35,6 +35,19 @@ ENV NREPLICAS 3
 
 #env variables for server
 ENV SPORT 7001
+# server port
+ENV SADDR localhost
+ENV DoMencius false
+ENV DoGpaxos false
+ENV DoEpaxos false
+ENV PROCS 2
+ENV CPUPROFILE ""
+ENV THRIFTY false
+ENV EXEC false
+ENV DREPLY false
+ENV BEACON false
+ENV DURABLE false
+
 
 
 
