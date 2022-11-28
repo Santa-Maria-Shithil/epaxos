@@ -1,5 +1,14 @@
 Built with Go version go1.1.2
 
+MY WAY
+    cd epaxos
+    bash bin/initMaster.sh //one master
+    bash bin/initServer.sh //multiple server
+    bash bin/initClient.sh //multiple client
+  
+
+
+
 To build:
 
     export GOPATH=[...]/git/epaxos/

@@ -20,6 +20,8 @@ fi
 
 if [ "${TYPE}" == "master" ]; then
     args="-port ${MPORT} -N ${NREPLICAS}"
+    #arguments must be according to the order of the master.go file
+
     echo "master mode: ${args}"
     ${DIR}/master ${args}
 fi
@@ -56,7 +58,9 @@ fi
 
 if [ "${TYPE}" == "server" ]; then
     args="-port ${SPORT} -addr ${SADDR} -mport ${MPORT} -maddr ${MADDR}"
-    
+    #arguments must be according to the order of the server.go file
+
+
     #-durable ${DURABLE} -beacon ${BEACON} -dreply ${DREPLY} -exec ${EXEC} -thrifty ${THRIFTY} -cpuprofile ${CPUPROFILE} -procs ${PROCS} -doEpaxos ${DoEpaxos} -doGpaxos ${DoGpaxos} -doMencius ${DoMencius} -addr ${SADDR} -port ${SPORT} -maddr ${MADDR} -mport ${MPORT} ${SERVER_EXTRA_ARGS}"
     echo "server mode: ${args}"
     ${DIR}/server ${args}
