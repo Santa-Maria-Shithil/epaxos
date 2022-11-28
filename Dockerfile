@@ -34,7 +34,7 @@ ENV NREPLICAS 3
 # number of replicas
 
 #env variables for server
-ENV SPORT 7070
+ENV SPORT ""
 # server port
 ENV SADDR localhost
 ENV DoMencius false
