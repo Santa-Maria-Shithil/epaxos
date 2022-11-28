@@ -86,8 +86,12 @@ fi
 #   -l local read
 if [ "${TYPE}" == "client" ]; then
     args="-maddr ${MADDR} -mport ${MPORT} ${CLIENT_EXTRA_ARGS}"
+    #arguments must be according to the order of the client.go file
+
+
 
     #-v ${V} -s ${S} -c ${CONFLICTS} -eps ${EPS} -check ${CHECK} -p ${PROCS} -r ${ROUNDS} -f ${FAST} -e ${NOLEADER} -w ${WRITES} -q ${Q} -maddr ${MADDR} -mport ${MPORT} ${CLIENT_EXTRA_ARGS}"
+ 
  # aggregate all logs in a single file
     ALL=all_logs
     echo "client mode: ${args}" >${ALL}
