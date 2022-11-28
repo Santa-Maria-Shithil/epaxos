@@ -85,7 +85,9 @@ fi
 #   -s	replace read with short scan (100 elements)
 #   -l local read
 if [ "${TYPE}" == "client" ]; then
-    args="-v ${V} -s ${S} -c ${CONFLICTS} -eps ${EPS} -check ${CHECK} -p ${PROCS} -r ${ROUNDS} -f ${FAST} -e ${NOLEADER} -w ${WRITES} -q ${Q} -maddr ${MADDR} -mport ${MPORT} ${CLIENT_EXTRA_ARGS}"
+    args="-maddr ${MADDR} -mport ${MPORT} ${CLIENT_EXTRA_ARGS}"
+
+    #-v ${V} -s ${S} -c ${CONFLICTS} -eps ${EPS} -check ${CHECK} -p ${PROCS} -r ${ROUNDS} -f ${FAST} -e ${NOLEADER} -w ${WRITES} -q ${Q} -maddr ${MADDR} -mport ${MPORT} ${CLIENT_EXTRA_ARGS}"
 
      echo "client mode: ${args}"
      ${DIR}/client ${args}
