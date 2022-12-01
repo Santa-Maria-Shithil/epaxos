@@ -3,7 +3,7 @@
 FROM golang
 
 
-RUN apt install powertop 
+
 
 ENV NAME=/epaxos
 #ENV NAME=/go/epaxos
