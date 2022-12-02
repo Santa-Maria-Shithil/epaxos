@@ -133,7 +133,7 @@ func main() {
 
 	var id int32 = 0
 	done := make(chan bool, N)
-	args := genericsmrproto.Propose{id, state.Command{state.PUT, 0, 0}, 0} //make([]int64, state.VALUE_SIZE)}}
+	args := genericsmrproto.Propose{id, state.Command{state.PUT, 0, 0}} //make([]int64, state.VALUE_SIZE)}}
 
 	pdone := make(chan bool)
 	go printer(pdone)
