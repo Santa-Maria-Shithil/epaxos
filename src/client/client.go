@@ -221,6 +221,7 @@ func main() {
 				log.Printf("New leader is replica %d\n", leader)
 			}
 		}
+
 	}
 
 	after_total := time.Now()
@@ -258,9 +259,10 @@ func waitReplies(readers []*bufio.Reader, leader int, n int, done chan bool) {
 			}
 			rsp[reply.CommandId] = true
 		}
+
 		if reply.OK != 0 {
 			successful[leader]++
-			log.Printf(reply.Value)
+			//log.Printf(reply.Value)
 		}
 	}
 	done <- e
