@@ -4,12 +4,15 @@ import (
 	"dlog"
 	"encoding/binary"
 	"fastrpc"
+	"fmt"
 	"genericsmr"
 	"genericsmrproto"
 	"io"
 	"log"
+	"os"
 	"paxosproto"
 	"state"
+	"strconv"
 	"time"
 )
 
@@ -19,7 +22,7 @@ const FALSE = uint8(0)
 
 const MAX_BATCH = 5000
 
-var requestCounter = 0
+var requestCounter int64 = 0
 
 type Replica struct {
 	*genericsmr.Replica // extends a generic Paxos replica
@@ -224,8 +227,7 @@ func (r *Replica) run() {
 		case commitS := <-r.commitChan:
 			commit := commitS.(*paxosproto.Commit)
 			//got a Commit message
-			requestCounter++ //@sshithil
-			log.Printf("Number of request: %d", requestCounter)
+			writingFile() //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommit(commit)
 			break
@@ -233,8 +235,7 @@ func (r *Replica) run() {
 		case commitS := <-r.commitShortChan:
 			commit := commitS.(*paxosproto.CommitShort)
 			//got a Commit message
-			requestCounter++ //@sshithil
-			log.Printf("Number of request: %d", requestCounter)
+			writingFile() //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommitShort(commit)
 			break
@@ -255,6 +256,25 @@ func (r *Replica) run() {
 			break
 		}
 	}
+}
+
+// @sshithil
+func writingFile() {
+
+	requestCounter++
+	f, err := os.OpenFile("tput.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0755)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	l, err := f.WriteString(strconv.FormatInt(requestCounter, 10))
+	if err != nil {
+		fmt.Println(err)
+		//f.Close()
+		return
+	}
+	fmt.Println(l)
+
 }
 
 func (r *Replica) makeUniqueBallot(ballot int32) int32 {
