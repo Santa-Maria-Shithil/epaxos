@@ -270,7 +270,7 @@ func writingFile() {
 	l, err := f.WriteString(strconv.FormatInt(requestCounter, 10))
 	if err != nil {
 		fmt.Println(err)
-		//f.Close()
+		f.Close()
 		return
 	}
 	fmt.Println(l)
