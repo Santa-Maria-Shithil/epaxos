@@ -1,10 +1,13 @@
 package main
 
 import (
+	"C" //@sshithil
+	"cpu"
 	"epaxos"
 	"flag"
 	"fmt"
 	"gpaxos"
+	"internal/cpu"
 	"log"
 	"masterproto"
 	"mencius"
@@ -33,10 +36,14 @@ var exec = flag.Bool("exec", false, "Execute commands.")
 var dreply = flag.Bool("dreply", false, "Reply to client only after command has been executed.")
 var beacon = flag.Bool("beacon", false, "Send beacons to other replicas to compare their relative speeds.")
 var durable = flag.Bool("durable", false, "Log to a stable store (i.e., a file in the current dir).")
+var startTime=time.Now() //@sshithil
+var startTicks=C.clock() //@sshitihl
+
 
 func main() {
 	flag.Parse()
 
+	
 	runtime.GOMAXPROCS(*procs)
 
 	if *cpuprofile != "" {
@@ -81,6 +88,7 @@ func main() {
 		log.Fatal("listen error:", err)
 	}
 	//http.Header.Values()
+
 	http.Serve(l, nil)
 }
 
@@ -102,7 +110,16 @@ func registerWithMaster(masterAddr string) (int, []string) {
 
 	return reply.ReplicaId, reply.NodeList
 }
-
+func writingUpdates() //@sshithil
+{
+	for{
+		clockSeconds := float64(C.clock()-startTicks) / float64(C.CLOCKS_PER_SEC)
+		realSeconds := time.Since(startTime).Seconds()
+		fmt.Println("CPU USAGE:" clockSeconds / realSeconds * 100)
+		
+	}
+	
+}
 func catchKill(interrupt chan os.Signal) {
 	<-interrupt
 	if *cpuprofile != "" {
