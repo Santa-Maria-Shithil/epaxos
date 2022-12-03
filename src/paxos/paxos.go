@@ -199,8 +199,7 @@ func (r *Replica) run() {
 
 		case propose := <-onOffProposeChan:
 			//got a Propose from a client
-			requestCounter++                                    //@sshithil
-			log.Printf("Number of request: %d", requestCounter) //@sshithil
+
 			dlog.Printf("Proposal with op %d\n", propose.Command.Op)
 			r.handlePropose(propose)
 			//deactivate the new proposals channel to prioritize the handling of protocol messages
@@ -210,8 +209,7 @@ func (r *Replica) run() {
 		case prepareS := <-r.prepareChan:
 			prepare := prepareS.(*paxosproto.Prepare)
 			//got a Prepare message
-			requestCounter++ //@sshithil
-			log.Printf("Number of request: %d", requestCounter)
+
 			dlog.Printf("Received Prepare from replica %d, for instance %d\n", prepare.LeaderId, prepare.Instance)
 			r.handlePrepare(prepare)
 			break
