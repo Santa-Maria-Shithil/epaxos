@@ -33,6 +33,7 @@ var exec = flag.Bool("exec", false, "Execute commands.")
 var dreply = flag.Bool("dreply", false, "Reply to client only after command has been executed.")
 var beacon = flag.Bool("beacon", false, "Send beacons to other replicas to compare their relative speeds.")
 var durable = flag.Bool("durable", false, "Log to a stable store (i.e., a file in the current dir).")
+var trequests *int = flag.Int("r", 0, "total number of request processed") //@sshithil
 
 func main() {
 	flag.Parse()

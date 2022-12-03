@@ -19,6 +19,8 @@ const FALSE = uint8(0)
 
 const MAX_BATCH = 5000
 
+var requestCounter = 0
+
 type Replica struct {
 	*genericsmr.Replica // extends a generic Paxos replica
 	prepareChan         chan fastrpc.Serializable
@@ -99,7 +101,7 @@ func NewReplica(id int, peerAddrList []string, thrifty bool, exec bool, dreply b
 	return r
 }
 
-//append a log entry to stable storage
+// append a log entry to stable storage
 func (r *Replica) recordInstanceMetadata(inst *Instance) {
 	if !r.Durable {
 		return
@@ -111,7 +113,7 @@ func (r *Replica) recordInstanceMetadata(inst *Instance) {
 	r.StableStore.Write(b[:])
 }
 
-//write a sequence of commands to stable storage
+// write a sequence of commands to stable storage
 func (r *Replica) recordCommands(cmds []state.Command) {
 	if !r.Durable {
 		return
@@ -125,7 +127,7 @@ func (r *Replica) recordCommands(cmds []state.Command) {
 	}
 }
 
-//sync with the stable store
+// sync with the stable store
 func (r *Replica) sync() {
 	if !r.Durable {
 		return
@@ -194,6 +196,8 @@ func (r *Replica) run() {
 
 		case propose := <-onOffProposeChan:
 			//got a Propose from a client
+			requestCounter++                                    //@sshithil
+			log.Printf("Number of request: %d", requestCounter) //@sshithil
 			dlog.Printf("Proposal with op %d\n", propose.Command.Op)
 			r.handlePropose(propose)
 			//deactivate the new proposals channel to prioritize the handling of protocol messages
@@ -203,6 +207,8 @@ func (r *Replica) run() {
 		case prepareS := <-r.prepareChan:
 			prepare := prepareS.(*paxosproto.Prepare)
 			//got a Prepare message
+			requestCounter++ //@sshithil
+			log.Printf("Number of request: %d", requestCounter)
 			dlog.Printf("Received Prepare from replica %d, for instance %d\n", prepare.LeaderId, prepare.Instance)
 			r.handlePrepare(prepare)
 			break
@@ -210,6 +216,7 @@ func (r *Replica) run() {
 		case acceptS := <-r.acceptChan:
 			accept := acceptS.(*paxosproto.Accept)
 			//got an Accept message
+
 			dlog.Printf("Received Accept from replica %d, for instance %d\n", accept.LeaderId, accept.Instance)
 			r.handleAccept(accept)
 			break
@@ -217,6 +224,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitChan:
 			commit := commitS.(*paxosproto.Commit)
 			//got a Commit message
+			requestCounter++ //@sshithil
+			log.Printf("Number of request: %d", requestCounter)
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommit(commit)
 			break
@@ -224,6 +233,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitShortChan:
 			commit := commitS.(*paxosproto.CommitShort)
 			//got a Commit message
+			requestCounter++ //@sshithil
+			log.Printf("Number of request: %d", requestCounter)
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommitShort(commit)
 			break
@@ -231,6 +242,7 @@ func (r *Replica) run() {
 		case prepareReplyS := <-r.prepareReplyChan:
 			prepareReply := prepareReplyS.(*paxosproto.PrepareReply)
 			//got a Prepare reply
+
 			dlog.Printf("Received PrepareReply for instance %d\n", prepareReply.Instance)
 			r.handlePrepareReply(prepareReply)
 			break
