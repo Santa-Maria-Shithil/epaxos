@@ -12,12 +12,13 @@ import (
 	"net/rpc"
 	"runtime"
 	"state"
+	"sync"
 	"time"
 )
 
 var masterAddr *string = flag.String("maddr", "", "Master address. Defaults to localhost")
 var masterPort *int = flag.Int("mport", 7087, "Master port.  Defaults to 7077.")
-var reqsNb *int = flag.Int("q", 100000, "Total number of requests. Defaults to 5000.")
+var reqsNb *int = flag.Int("q", 1000000, "Total number of requests. Defaults to 5000.")
 var writes *int = flag.Int("w", 50, "Percentage of updates (writes). Defaults to 100%.")
 var noLeader *bool = flag.Bool("e", false, "Egalitarian (no leader). Defaults to false.")
 var fast *bool = flag.Bool("f", false, "Fast Paxos: send message directly to all replicas. Defaults to false.")
@@ -32,6 +33,8 @@ var v = flag.Float64("v", 1, "Zipfian v parameter")
 var N int
 
 var successful []int
+var succ int
+var succLock = new(sync.Mutex)
 
 var rarray []int
 var rsp []bool
@@ -128,6 +131,8 @@ func main() {
 	var id int32 = 0
 	done := make(chan bool, N)
 	args := genericsmrproto.Propose{id, state.Command{state.PUT, 0, 0}, 0}
+
+	go printer()
 
 	before_total := time.Now()
 
@@ -233,6 +238,7 @@ func main() {
 	}
 
 	fmt.Printf("Successful: %d\n", s)
+	fmt.Printf("Throughput %v\n", float64(s)/(after_total.Sub(before_total)).Seconds())
 
 	for _, client := range servers {
 		if client != nil {
@@ -263,8 +269,38 @@ func waitReplies(readers []*bufio.Reader, leader int, n int, done chan bool) {
 
 		if reply.OK != 0 {
 			successful[leader]++
+			succLock.Lock()
+			succ++
+			succLock.Unlock()
 			//log.Printf(reply.Value)
 		}
 	}
 	done <- e
+}
+
+func printer() {
+	i := 0
+	//vacd ..r ts int
+	//var smooth [50]float64
+	//i := 0
+	//mt := 0.0
+	for true {
+		time.Sleep(1 * time.Second)
+		var ls int
+		succLock.Lock()
+		ls = succ
+		succ = 0
+		succLock.Unlock()
+
+		log.Printf("at %d th second throughput is:%d", i, ls)
+		i++
+		/*j := i % len(smooth)
+		mt -= smooth[j]
+		smooth[j] = float64(ls * 100)
+		mt += smooth[j]
+		i++
+		if i >= len(smooth) {
+			log.Printf(fmt.Sprintf("%f", mt/float64(len(smooth))))
+		}*/
+	}
 }
