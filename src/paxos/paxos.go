@@ -10,6 +10,7 @@ import (
 	"log"
 	"paxosproto"
 	"state"
+	"sync/atomic"
 	"time"
 )
 
@@ -18,6 +19,8 @@ const TRUE = uint8(1)
 const FALSE = uint8(0)
 
 const MAX_BATCH = 5000
+
+var reqCounter uint32
 
 type Replica struct {
 	*genericsmr.Replica // extends a generic Paxos replica
@@ -41,7 +44,6 @@ type Replica struct {
 	counter             int
 	flush               bool
 	committedUpTo       int32
-	reqCounter          int64
 }
 
 type InstanceStatus int
@@ -84,8 +86,7 @@ func NewReplica(id int, peerAddrList []string, thrifty bool, exec bool, dreply b
 		false,
 		0,
 		true,
-		-1,
-		0}
+		-1}
 
 	r.Durable = durable
 
@@ -222,8 +223,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitChan:
 			commit := commitS.(*paxosproto.Commit)
 			//got a Commit message
-			r.reqCounter++                                                                   //@sshithil
-			log.Printf("Total processed requests:%d from %d", r.reqCounter, commit.LeaderId) //@sshithil
+			atomic.AddUint32(&reqCounter, 1)                                               //@sshithil
+			log.Printf("Total processed requests:%d from %d", reqCounter, commit.LeaderId) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommit(commit)
 			break
@@ -231,8 +232,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitShortChan:
 			commit := commitS.(*paxosproto.CommitShort)
 			//got a Commit message
-			r.reqCounter++                                                                   //@sshithil
-			log.Printf("Total processed requests:%d from %d", r.reqCounter, commit.LeaderId) //@sshithil
+			atomic.AddUint32(&reqCounter, 1)                                               //@sshithil
+			log.Printf("Total processed requests:%d from %d", reqCounter, commit.LeaderId) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommitShort(commit)
 			break
@@ -654,6 +655,9 @@ func (r *Replica) handleAcceptReply(areply *paxosproto.AcceptReply) {
 			r.sync() //is this necessary?
 
 			r.updateCommittedUpTo()
+
+			atomic.AddUint32(&reqCounter, 1)                      //@sshithil
+			log.Printf("Total processed requests:%d", reqCounter) //@sshithil
 
 			r.bcastCommit(areply.Instance, inst.ballot, inst.cmds)
 		}
