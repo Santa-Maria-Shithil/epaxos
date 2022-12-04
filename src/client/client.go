@@ -286,7 +286,7 @@ func printer(done chan bool) {
 	//i := 0
 	//mt := 0.0
 	for true {
-		time.Sleep(10 * 1000 * 1000)
+		time.Sleep(10 * time.Second)
 		var ls int
 		succLock.Lock()
 		ls = succ
