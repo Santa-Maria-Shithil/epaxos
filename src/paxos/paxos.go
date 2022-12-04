@@ -222,8 +222,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitChan:
 			commit := commitS.(*paxosproto.Commit)
 			//got a Commit message
-			requestCounter++                                          //@sshithil
-			log.Printf("Total processed requests:%d", requestCounter) //@sshithil
+			requestCounter++                                                                   //@sshithil
+			log.Printf("Total processed requests:%d from %d", requestCounter, commit.LeaderId) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommit(commit)
 			break
@@ -231,8 +231,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitShortChan:
 			commit := commitS.(*paxosproto.CommitShort)
 			//got a Commit message
-			requestCounter++                                          //@sshithil
-			log.Printf("Total processed requests:%d", requestCounter) //@sshithil
+			requestCounter++                                                                   //@sshithil
+			log.Printf("Total processed requests:%d from %d", requestCounter, commit.LeaderId) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommitShort(commit)
 			break
