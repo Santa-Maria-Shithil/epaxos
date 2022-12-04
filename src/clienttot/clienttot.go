@@ -278,9 +278,9 @@ func waitReplies(readers []*bufio.Reader, leader int, n int, done chan bool) {
 func printer(done chan bool) {
 	//i := 0
 	//vacd ..r ts int
-	//var smooth [50]float64
-	//i := 0
-	//mt := 0.0
+	var smooth [50]float64
+	i := 0
+	mt := 0.0
 	for true {
 		time.Sleep(time.Second)
 		var ls int
@@ -290,13 +290,13 @@ func printer(done chan bool) {
 		succLock.Unlock()
 		log.Printf("Total number of response received:%d", ls)
 
-		//j := i % len(smooth)
-		//mt -= smooth[j]
-		//smooth[j] = float64(ls * 100)
-		//mt += smooth[j]
-		//i++
-		//if i >= len(smooth) {
-		//	log.Printf(fmt.Sprintf("%f", mt/float64(len(smooth))))
-		//}
+		j := i % len(smooth)
+		mt -= smooth[j]
+		smooth[j] = float64(ls * 100)
+		mt += smooth[j]
+		i++
+		if i >= len(smooth) {
+			log.Printf(fmt.Sprintf("%f", mt/float64(len(smooth))))
+		}
 	}
 }
