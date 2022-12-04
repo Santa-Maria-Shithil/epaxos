@@ -52,7 +52,7 @@ ENV BEACON false
 ENV DURABLE false
 
 #env variables for client
-ENV Q 5000
+ENV Q 1000000
 ENV WRITES 100
 ENV NOLEADER false
 ENV FAST false
