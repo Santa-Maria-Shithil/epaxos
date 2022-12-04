@@ -235,7 +235,7 @@ func main() {
 	}
 
 	fmt.Printf("Successful: %d\n", s)
-	fmt.Printf("%v\n", float64(s)/(after_total.Sub(before_total)).Seconds())
+	fmt.Printf("Throughput %v\n", float64(s)/(after_total.Sub(before_total)).Seconds())
 
 	for _, client := range servers {
 		if client != nil {
@@ -288,6 +288,7 @@ func printer(done chan bool) {
 		ls = succ
 		succ = 0
 		succLock.Unlock()
+
 		log.Printf("Total number of response received:%d", ls)
 
 		j := i % len(smooth)
