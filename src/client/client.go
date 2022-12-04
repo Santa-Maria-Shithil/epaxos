@@ -132,8 +132,8 @@ func main() {
 	done := make(chan bool, N)
 	args := genericsmrproto.Propose{id, state.Command{state.PUT, 0, 0}, 0}
 
-	//pdone := make(chan bool)
-	//go printer(pdone)
+	pdone := make(chan bool)
+	go printer(pdone)
 
 	before_total := time.Now()
 
@@ -270,9 +270,9 @@ func waitReplies(readers []*bufio.Reader, leader int, n int, done chan bool) {
 
 		if reply.OK != 0 {
 			successful[leader]++
-			//succLock.Lock()
-			//succ++
-			//succLock.Unlock()
+			succLock.Lock()
+			succ++
+			succLock.Unlock()
 			//log.Printf(reply.Value)
 		}
 	}
