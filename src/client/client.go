@@ -270,9 +270,9 @@ func waitReplies(readers []*bufio.Reader, leader int, n int, done chan bool) {
 
 		if reply.OK != 0 {
 			successful[leader]++
-			succLock.Lock()
-			succ++
-			succLock.Unlock()
+			//succLock.Lock()
+			//succ++
+			//succLock.Unlock()
 			//log.Printf(reply.Value)
 		}
 	}
