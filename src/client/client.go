@@ -33,7 +33,7 @@ var v = flag.Float64("v", 1, "Zipfian v parameter")
 var N int
 
 var successful []int
-var succ int
+var succ int = 0
 var succLock = new(sync.Mutex)
 
 var rarray []int
@@ -286,7 +286,7 @@ func printer(done chan bool) {
 	//i := 0
 	//mt := 0.0
 	for true {
-		time.Sleep(1 * time.Second)
+		time.Sleep(10 * 1000 * 1000)
 		var ls int
 		succLock.Lock()
 		ls = succ
