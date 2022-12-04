@@ -260,7 +260,7 @@ func waitReplies(readers []*bufio.Reader, leader int, n int, done chan bool) {
 			e = true
 			continue
 		}
-		fmt.Println("Receiving  Proposal: ", reply.Value, "from node: ", leader) //@sshithil added
+		//fmt.Println("Receiving  Proposal: ", reply.Value, "from node: ", leader) //@sshithil added
 		if *check {
 			if rsp[reply.CommandId] {
 				fmt.Println("Duplicate reply", reply.CommandId)
