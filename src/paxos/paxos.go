@@ -19,8 +19,6 @@ const FALSE = uint8(0)
 
 const MAX_BATCH = 5000
 
-var requestCounter int64 = 0
-
 type Replica struct {
 	*genericsmr.Replica // extends a generic Paxos replica
 	prepareChan         chan fastrpc.Serializable
@@ -43,6 +41,7 @@ type Replica struct {
 	counter             int
 	flush               bool
 	committedUpTo       int32
+	reqCounter          int64
 }
 
 type InstanceStatus int
@@ -85,7 +84,8 @@ func NewReplica(id int, peerAddrList []string, thrifty bool, exec bool, dreply b
 		false,
 		0,
 		true,
-		-1}
+		-1,
+		0}
 
 	r.Durable = durable
 
@@ -222,8 +222,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitChan:
 			commit := commitS.(*paxosproto.Commit)
 			//got a Commit message
-			requestCounter++                                                                   //@sshithil
-			log.Printf("Total processed requests:%d from %d", requestCounter, commit.LeaderId) //@sshithil
+			r.reqCounter++                                                                   //@sshithil
+			log.Printf("Total processed requests:%d from %d", r.reqCounter, commit.LeaderId) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommit(commit)
 			break
@@ -231,8 +231,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitShortChan:
 			commit := commitS.(*paxosproto.CommitShort)
 			//got a Commit message
-			requestCounter++                                                                   //@sshithil
-			log.Printf("Total processed requests:%d from %d", requestCounter, commit.LeaderId) //@sshithil
+			r.reqCounter++                                                                   //@sshithil
+			log.Printf("Total processed requests:%d from %d", r.reqCounter, commit.LeaderId) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommitShort(commit)
 			break
