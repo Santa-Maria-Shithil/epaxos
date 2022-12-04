@@ -294,7 +294,7 @@ func printer(done chan bool) {
 		mt += smooth[j]
 		i++
 		if i >= len(smooth) {
-			fmt.Println(mt / float64(len(smooth)))
+			log.Printf(fmt.Sprintf("%f", mt/float64(len(smooth))))
 		}
 	}
 }
