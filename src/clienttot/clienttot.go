@@ -133,7 +133,7 @@ func main() {
 
 	var id int32 = 0
 	done := make(chan bool, N)
-	args := genericsmrproto.Propose{id, state.Command{state.PUT, 0, 0}} //make([]int64, state.VALUE_SIZE)}}
+	args := genericsmrproto.Propose{id, state.Command{state.PUT, 0, 0}, 0} //make([]int64, state.VALUE_SIZE)}}
 
 	pdone := make(chan bool)
 	go printer(pdone)
@@ -170,8 +170,8 @@ func main() {
 					continue
 				}
 			}
-			args.ClientId = id
 			args.Command.K = state.Key(karray[i])
+			args.Command.V = state.Value(i)
 			writers[leader].WriteByte(genericsmrproto.PROPOSE)
 			args.Marshal(writers[leader])
 			writers[leader].Flush()
@@ -260,10 +260,10 @@ func waitReplies(readers []*bufio.Reader, leader int, n int, done chan bool) {
 			break
 		}
 		if *check {
-			if rsp[reply.Instance] {
-				fmt.Println("Duplicate reply", reply.Instance)
+			if rsp[reply.CommandId] {
+				fmt.Println("Duplicate reply", reply.CommandId)
 			}
-			rsp[reply.Instance] = true
+			rsp[reply.CommandId] = true
 		}
 		if reply.OK != 0 {
 			successful[leader]++
