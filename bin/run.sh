@@ -54,7 +54,7 @@ fi
 #     	Use only as many messages as strictly required for inter-replica communication. (default true)
 #   -maxfailures int
 #     	maximumum numnber of tolerated failures (default is minority, ignored by other protocols than Paxos)
-
+mkdir -p logs/
 
 if [ "${TYPE}" == "server" ]; then
     args="-port ${SPORT} -addr ${SADDR} -mport ${MPORT} -maddr ${MADDR}"
@@ -63,7 +63,7 @@ if [ "${TYPE}" == "server" ]; then
 
     #-durable ${DURABLE} -beacon ${BEACON} -dreply ${DREPLY} -exec ${EXEC} -thrifty ${THRIFTY} -cpuprofile ${CPUPROFILE} -procs ${PROCS} -doEpaxos ${DoEpaxos} -doGpaxos ${DoGpaxos} -doMencius ${DoMencius} -addr ${SADDR} -port ${SPORT} -maddr ${MADDR} -mport ${MPORT} ${SERVER_EXTRA_ARGS}"
     echo "server mode: ${args}"
-    ${DIR}/server ${args} 2>&1 | tee -a logs/server_${SPORT}.txt
+    ${DIR}/server ${args} 2>&1 | tee -a logs/server_${SPORT}.txt &
 fi
 
 # Usage of ./bin/client:
@@ -100,7 +100,7 @@ if [ "${TYPE}" == "client" ]; then
     ALL=all_logs
     echo "client mode: ${args}" >${ALL}
 
-    mkdir -p logs/
+    
 
     for i in $(seq 1 ${NCLIENTS}); do
         ${DIR}/client ${args} 2>&1 | tee -a logs/c_${i}.txt ${ALL} >/dev/null &
