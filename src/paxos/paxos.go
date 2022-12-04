@@ -17,7 +17,7 @@ const CHAN_BUFFER_SIZE = 200000
 const TRUE = uint8(1)
 const FALSE = uint8(0)
 
-const MAX_BATCH = 10 //DEFAULT SIZE IS 5000
+const MAX_BATCH = 100 //DEFAULT SIZE IS 5000
 
 var reqCounter uint32
 
