@@ -4,15 +4,12 @@ import (
 	"dlog"
 	"encoding/binary"
 	"fastrpc"
-	"fmt"
 	"genericsmr"
 	"genericsmrproto"
 	"io"
 	"log"
-	"os"
 	"paxosproto"
 	"state"
-	"strconv"
 	"time"
 )
 
@@ -225,7 +222,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitChan:
 			commit := commitS.(*paxosproto.Commit)
 			//got a Commit message
-			writingFile() //@sshithil
+			requestCounter++                                          //@sshithil
+			log.Printf("Total processed requests:%d", requestCounter) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommit(commit)
 			break
@@ -233,7 +231,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitShortChan:
 			commit := commitS.(*paxosproto.CommitShort)
 			//got a Commit message
-			writingFile() //@sshithil
+			requestCounter++                                          //@sshithil
+			log.Printf("Total processed requests:%d", requestCounter) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommitShort(commit)
 			break
@@ -254,25 +253,6 @@ func (r *Replica) run() {
 			break
 		}
 	}
-}
-
-// @sshithil
-func writingFile() {
-
-	requestCounter++
-	f, err := os.OpenFile("tput.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0755)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	l, err := f.WriteString(strconv.FormatInt(requestCounter, 10))
-	if err != nil {
-		fmt.Println(err)
-		f.Close()
-		return
-	}
-	fmt.Println(l)
-
 }
 
 func (r *Replica) makeUniqueBallot(ballot int32) int32 {
