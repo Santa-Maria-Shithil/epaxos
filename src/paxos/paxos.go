@@ -10,6 +10,7 @@ import (
 	"log"
 	"paxosproto"
 	"state"
+	"sync/atomic"
 	"time"
 )
 
@@ -222,8 +223,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitChan:
 			commit := commitS.(*paxosproto.Commit)
 			//got a Commit message
-			//atomic.AddUint32(&reqCounter, 1)                                               //@sshithil
-			//log.Printf("Total processed requests:%d from %d", reqCounter, commit.LeaderId) //@sshithil
+			atomic.AddUint32(&reqCounter, 1)                                               //@sshithil
+			log.Printf("Total processed requests:%d from %d", reqCounter, commit.LeaderId) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommit(commit)
 			break
@@ -231,8 +232,8 @@ func (r *Replica) run() {
 		case commitS := <-r.commitShortChan:
 			commit := commitS.(*paxosproto.CommitShort)
 			//got a Commit message
-			//atomic.AddUint32(&reqCounter, 1)                                               //@sshithil
-			//log.Printf("Total processed requests:%d from %d", reqCounter, commit.LeaderId) //@sshithil
+			atomic.AddUint32(&reqCounter, 1)                                               //@sshithil
+			log.Printf("Total processed requests:%d from %d", reqCounter, commit.LeaderId) //@sshithil
 			dlog.Printf("Received Commit from replica %d, for instance %d\n", commit.LeaderId, commit.Instance)
 			r.handleCommitShort(commit)
 			break
@@ -655,8 +656,8 @@ func (r *Replica) handleAcceptReply(areply *paxosproto.AcceptReply) {
 
 			r.updateCommittedUpTo()
 
-			//atomic.AddUint32(&reqCounter, 1)                      //@sshithil
-			//log.Printf("Total processed requests:%d", reqCounter) //@sshithil
+			atomic.AddUint32(&reqCounter, 1)                      //@sshithil
+			log.Printf("Total processed requests:%d", reqCounter) //@sshithil
 
 			r.bcastCommit(areply.Instance, inst.ballot, inst.cmds)
 		}

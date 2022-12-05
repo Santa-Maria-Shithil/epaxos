@@ -63,7 +63,7 @@ if [ "${TYPE}" == "server" ]; then
 
     #-durable ${DURABLE} -beacon ${BEACON} -dreply ${DREPLY} -exec ${EXEC} -thrifty ${THRIFTY} -cpuprofile ${CPUPROFILE} -procs ${PROCS} -doEpaxos ${DoEpaxos} -doGpaxos ${DoGpaxos} -doMencius ${DoMencius} -addr ${SADDR} -port ${SPORT} -maddr ${MADDR} -mport ${MPORT} ${SERVER_EXTRA_ARGS}"
     echo "server mode: ${args}"
-    ${DIR}/server ${args} 2>&1 | tee -a logs/server_${SPORT}.txt &
+    ${DIR}/server ${args} 2>&1 | tee -a logs/server_${SPORT}.txt 
 fi
 
 # Usage of ./bin/client:
