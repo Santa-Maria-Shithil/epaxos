@@ -132,8 +132,8 @@ func main() {
 	done := make(chan bool, N)
 	args := genericsmrproto.Propose{id, state.Command{state.PUT, 0, 0}, 0}
 
-	//pdone := make(chan bool)
-	//go printer(pdone)
+	pdone := make(chan bool)
+	go printer(pdone)
 
 	before_total := time.Now()
 
