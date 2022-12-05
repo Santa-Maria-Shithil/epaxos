@@ -33,7 +33,7 @@ ENV MADDR localhost
 # master address   
 ENV MPORT 7087
 # master port
-ENV NREPLICAS 3
+ENV NREPLICAS 5
 # number of replicas
 
 #env variables for server
