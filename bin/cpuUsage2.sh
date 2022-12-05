@@ -1,5 +1,6 @@
 
 while true; do
-        mpstat -P 0,1,2,3,4,5,6,7,8  2>&1 | tee -a output.txt
+        mpstat -P 1,2,3,4,5,6,7,8,9,10,11,12,13,14  2>&1 | tee -a cpuUsage.txt
+        powertop 2>&1 | tee -a cpuPowerConsumption.txt
         sleep 1;
     done
