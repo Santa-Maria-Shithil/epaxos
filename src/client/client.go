@@ -159,7 +159,7 @@ func main() {
 		before := time.Now()
 
 		for i := 0; i < n+*eps; i++ {
-			log.Printf("Sending proposal %d\n", id)
+			//log.Printf("Sending proposal %d\n", id)
 			args.CommandId = id
 			if put[i] {
 				args.Command.Op = state.PUT
@@ -286,7 +286,7 @@ func printer(done chan bool) {
 	//i := 0
 	//mt := 0.0
 	for true {
-		time.Sleep(10 * time.Second)
+		time.Sleep(1 * time.Second)
 		var ls int
 		succLock.Lock()
 		ls = succ
