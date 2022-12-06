@@ -103,8 +103,8 @@ if [ "${TYPE}" == "client" ]; then
     
 
     for i in $(seq 1 ${NCLIENTS}); do
-        ${DIR}/client ${args} 2>&1 | tee -a logs/c_${i}.txt ${ALL} >/dev/null &
-        #${DIR}/clienttot ${args} 2>&1 | tee -a logs/c_${i}.txt ${ALL} >/dev/null &
+        ${DIR}/client -maddr ${MADDR} -mport ${MPORT} -id ${i} 2>&1 | tee -a logs/c_${i}.txt ${ALL} >/dev/null &
+        #${DIR}/client ${args} 2>&1 | tee -a logs/c_${i}.txt ${ALL} >/dev/null &
         echo "> Client $i of ${NCLIENTS} started!"
     done
 
