@@ -133,7 +133,7 @@ func main() {
 
 	var id int32 = 0
 	done := make(chan bool, N)
-	args := genericsmrproto.Propose{id, state.Command{state.PUT, 0, 0}, 0} //make([]int64, state.VALUE_SIZE)}}
+	args := genericsmrproto.Propose{id, state.Command{state.PUT, 0, 0}} //make([]int64, state.VALUE_SIZE)}}
 
 	pdone := make(chan bool)
 	go printer(pdone)
@@ -170,8 +170,8 @@ func main() {
 					continue
 				}
 			}
+			args.ClientId = id
 			args.Command.K = state.Key(karray[i])
-			args.Command.V = state.Value(i)
 			writers[leader].WriteByte(genericsmrproto.PROPOSE)
 			args.Marshal(writers[leader])
 			writers[leader].Flush()
@@ -235,7 +235,7 @@ func main() {
 	}
 
 	fmt.Printf("Successful: %d\n", s)
-	fmt.Printf("Throughput %v\n", float64(s)/(after_total.Sub(before_total)).Seconds())
+	fmt.Printf("%v\n", float64(s)/(after_total.Sub(before_total)).Seconds())
 
 	for _, client := range servers {
 		if client != nil {
@@ -260,10 +260,10 @@ func waitReplies(readers []*bufio.Reader, leader int, n int, done chan bool) {
 			break
 		}
 		if *check {
-			if rsp[reply.CommandId] {
-				fmt.Println("Duplicate reply", reply.CommandId)
+			if rsp[reply.Instance] {
+				fmt.Println("Duplicate reply", reply.Instance)
 			}
-			rsp[reply.CommandId] = true
+			rsp[reply.Instance] = true
 		}
 		if reply.OK != 0 {
 			successful[leader]++
@@ -277,27 +277,24 @@ func waitReplies(readers []*bufio.Reader, leader int, n int, done chan bool) {
 
 func printer(done chan bool) {
 	//i := 0
-	//vacd ..r ts int
+	//var ts int
 	var smooth [50]float64
 	i := 0
 	mt := 0.0
 	for true {
-		time.Sleep(time.Second)
+		time.Sleep(10 * 1000 * 1000)
 		var ls int
 		succLock.Lock()
 		ls = succ
 		succ = 0
 		succLock.Unlock()
-
-		log.Printf("Total number of response received:%d", ls)
-
 		j := i % len(smooth)
 		mt -= smooth[j]
 		smooth[j] = float64(ls * 100)
 		mt += smooth[j]
 		i++
 		if i >= len(smooth) {
-			log.Printf(fmt.Sprintf("%f", mt/float64(len(smooth))))
+			fmt.Println(mt / float64(len(smooth)))
 		}
 	}
 }
